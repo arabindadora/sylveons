@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-
+import config from "../config";
 interface FileUpload {
   id: string;
   name: string;
@@ -86,29 +86,20 @@ const FileUpload: React.FC = () => {
         setUploadSuccess(false);
 
         const formData = new FormData();
-        formData.append("codeFile", uploadedFile);
+        formData.append("file", uploadedFile);
 
         try {
-          /* const response = await fetch('input/upload_file', {
+          const response = await fetch(config.apiBaseUrl + '/v2/upload', {
             method: "POST",
             body: formData,
-          }); */
-         
+          });
 
-          if (response.status === 202) {
-            setUploadSuccess(true);
-            console.log('File upload accepted, processing in the background.');
-
-
-          } else if(response.status === 200) {
+          if(response.status === 200) {
             setUploadSuccess(true);
             console.log('File upload completed successfully.');
-
-    
-
           } else {
-            /* const errorData = await response.json();
-            setUploadError(`Error: ${errorData.message || response.statusText}`); */
+            const errorData = await response.json();
+            setUploadError(`Error: ${errorData.message || response.statusText}`);
             setUploadError('Error fail');
           }
         } catch (error) {

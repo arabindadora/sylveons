@@ -18,15 +18,16 @@ async def reinit():
 app.include_router(graphql.get_app(), prefix="/api")
 
 
-@app.post("/api/upload")
+@app.post("/api/v2/upload")
 def upload(file: UploadFile = File(...)):
+    logger.info("received new upload request")
     with open(f"/tmp/{file.filename}", "wb") as f:
         f.write(file.file.read())
         logger.info(f"Uploaded file: {file.filename} successfully")
     return {"status": "ok"}
 
 
-@app.get("/api/analysis")
+@app.get("/api/v2/analysis")
 async def analysis(file: str):
     logger.info(f"Analyzing file: {file}")
     with open(f"/tmp/{file}", "r") as f:
