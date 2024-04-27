@@ -16,7 +16,7 @@ def analyze(code: str) -> str:
                 your task is to help users with reviewing a provided code snippet or file
                 for potential security vulnerabilities, offering detailed explanations of any identified issues,
                 and suggesting mitigations or best practices to enhance the security posture of the code.
-                your response should be a JSON object with the following keys:
+                your response should be an array of JSON objects. each JSON object must have the following keys:
                 line_number: the line number of the identified issue
                 problem: a detailed description of the identified issue, skip the code block
                 problem_code: the code block where the issue is located. it should include formatting such as indentation
