@@ -63,6 +63,11 @@ def get_couchbase_conf() -> couchbase.ConnectionConf:
         password=get_couchbase_password()
     )
 
+### OpenAI ###
+
+def get_openai_api_key() -> str | None:
+    return os.environ.get('OPENAI_API_KEY')
+
 ## Validation
 
 def validate():
@@ -81,5 +86,8 @@ def validate():
         ok = False
     if not get_couchbase_password():
         logger.error('COUCHBASE_PASSWORD is not set')
+        ok = False
+    if not get_openai_api_key():
+        logger.error('OPENAI_API_KEY is not set')
         ok = False
     return ok
