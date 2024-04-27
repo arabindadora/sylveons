@@ -29,3 +29,9 @@ export const PRODUCT_ADDED_SUBSCRIPTION = gql`
     productAdded { name, id }
   }
 `;
+
+export const UPLOAD_PRODUCT = gql`
+subscription OnProductAdded {
+  productAdded { name, id }
+}
+`;
