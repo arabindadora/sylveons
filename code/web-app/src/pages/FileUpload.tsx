@@ -118,13 +118,7 @@ const FileUpload: React.FC = () => {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<boolean>(false);
   const [responseFromAnalysis, setResponseFromAnalysis] = useState([
-    {
-      line: 0,
-      problem: "",
-      problem_code: "",
-      solution_code: "",
-      solution: "",
-    },
+    
   ]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,7 +183,7 @@ const FileUpload: React.FC = () => {
       <div className="navbar bg-base-300 text-neutral-content">
         <div className="flex-1">
           <a href="/" className="p-2 normal-case text-xl">
-            Upload a single file
+            Sylveon - Your Bug Bounty Buddy! 🐞
           </a>
         </div>
       </div>
@@ -198,14 +192,13 @@ const FileUpload: React.FC = () => {
         <div className="card card-compact w-full max-w-lg bg-base-100 shadow-xl">
           <div className="card-body items-stretch text-center">
             <h1 className="card-title self-center text-2xl font-bold mb-4">
-              Upload a single file
+              Upload sus file 🥷
             </h1>
             <div className="form-control w-full">
               <div className="join">
-                <div>
-                  <h1>Upload Code File</h1>
+                <div className="flex flex-grow justify-center items-center " >
                   <button className="btn btn-primary" onClick={handleFileUploadClick}>
-                    Upload
+                    Select
                   </button>
                   <input type="file" id="codeFileInput" accept=".js, .ts, .jsx, .tsx, .py" onChange={handleFileChange} style={{ display: "none" }} />
 
@@ -220,50 +213,55 @@ const FileUpload: React.FC = () => {
         </div>
 
 
-{/* parent div wrapping problem and solution */}
-<div className="flex flex-row justify-center align-items-center">
-        {/* problem here */}
-      <div className="flex flex-grow justify-center items-center bg-neutral">
-        <div className="card card-compact w-full max-w-lg bg-base-100 shadow-xl" style={{width:'800px', height:'100px'}}>
-          <div className="card-body items-stretch text-center" style={{width:'200px'}}>
-            { 
-              responseFromAnalysis && responseFromAnalysis.map((item: any) => (
-                <>
-                  <h3>Problem: {item.problem}</h3>
-                  <br/>
-                  <CodeEditor
-                    type="effect"
-                    barColor="#254262"
-                    data={item.problem_code} />
-                  <br/>
-                </>
-              ))
-          }
-            </div>
-          </div>
-        </div>
-        {/* solution here */}
-      <div className="flex flex-grow justify-center items-center bg-neutral">
-        <div className="card card-compact w-full max-w-lg bg-base-100 shadow-xl" style={{width:'800px', height:'100px'}}>
-          <div className="card-body items-stretch text-center" style={{width:'200px'}}>
-            {
-              responseFromAnalysis && responseFromAnalysis.map((item: any) => (
-                <div>
-                  <h3>Solution: {item.solution}</h3>
-                  <br/>
-                  <CodeEditor
-                    type="effect"
-                    barColor="#254262"
-                    data={item.solution_code}
-                  />
-                  <br/>
-                </div>
-              ))
+      {/* parent div wrapping problem and solution */}
+      {
+        responseFromAnalysis.length > 0 && (
+          <div className="flex flex-row justify-center align-items-center">
+          {/* problem here */}
+        <div className="flex flex-grow justify-center items-center bg-neutral  pb-5 pt-5">
+          <div className="card card-compact w-full max-w-lg bg-base-100 shadow-xl" style={{width:'800px', height:'500px'}}>
+            <div className="card-body items-stretch text-center" style={{width:'400px'}}>
+              { 
+                responseFromAnalysis && responseFromAnalysis.map((item: any) => (
+                  <div className="mb-5 mt-5">
+                    <h2>Problem: {item.problem}</h2>
+                    <br/>
+                    <CodeEditor
+                      type="effect"
+                      barColor="#254262"
+                      data={item.problem_code} />
+                    <br/>
+                  </div>
+                ))
             }
+              </div>
             </div>
           </div>
-        </div>
+          {/* solution here */}
+        <div className="flex flex-grow justify-center items-center bg-neutral  pb-5 pt-5">
+          <div className="card card-compact w-full max-w-lg bg-base-100 shadow-xl" style={{width:'800px', height:'500px'}}>
+            <div className="card-body items-stretch text-center" style={{width:'400px'}}>
+              {
+                responseFromAnalysis && responseFromAnalysis.map((item: any) => (
+                  <div className="mb-5 mt-5">
+                    <h2>Solution: {item.solution}</h2>
+                    <br/>
+                    <CodeEditor
+                      type="effect"
+                      barColor="#254262"
+                      data={item.solution_code}
+                    />
+                    <br/>
+                  </div>
+                ))
+              }
+              </div>
+            </div>
           </div>
+            </div>
+        )
+      }
+
       
 
       
