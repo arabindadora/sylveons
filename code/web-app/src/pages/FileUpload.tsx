@@ -192,7 +192,7 @@ const FileUpload: React.FC = () => {
         <div className="card card-compact w-full max-w-lg bg-base-100 shadow-xl">
           <div className="card-body items-stretch text-center">
             <h1 className="card-title self-center text-2xl font-bold mb-4">
-              Upload sus file 🥷
+              Upload your sus file 🥷
             </h1>
             <div className="form-control w-full">
               <div className="join">
@@ -202,9 +202,18 @@ const FileUpload: React.FC = () => {
                   </button>
                   <input type="file" id="codeFileInput" accept=".js, .ts, .jsx, .tsx, .py" onChange={handleFileChange} style={{ display: "none" }} />
 
-                  {uploading && <p>Uploading...</p>}
+                  {!uploadSuccess && uploading && <p>Uploading...</p>}
                   {uploadSuccess && <p>File uploaded successfully!</p>}
                   {uploadError && <p>Error: {uploadError}</p>}
+                  <br />
+                  {
+                    uploadSuccess && responseFromAnalysis.length === 0 && <span className="loading loading-spinner loading-lg"></span>
+                  }
+                  {
+                    responseFromAnalysis.length > 0 && <button className="btn btn-primary" onClick={() => { setResponseFromAnalysis([]); setUploadSuccess(false) }}>
+                     Clear
+                   </button>
+                  }
                 </div>
                 </div>
               </div>
@@ -214,6 +223,7 @@ const FileUpload: React.FC = () => {
 
 
       {/* parent div wrapping problem and solution */}
+      
       {
         responseFromAnalysis.length > 0 && (
           <div className="flex flex-row justify-center align-items-center">
