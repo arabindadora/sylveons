@@ -22,11 +22,16 @@ app.include_router(graphql.get_app(), prefix="/api")
 def upload(file: UploadFile = File(...)):
     with open(f"/tmp/{file.filename}", "wb") as f:
         f.write(file.file.read())
+        logger.info(f"Uploaded file: {file.filename} successfully")
     return {"status": "ok"}
 
 
 @app.get("/api/analysis")
 async def analysis(file: str):
+    logger.info(f"Analyzing file: {file}")
     with open(f"/tmp/{file}", "r") as f:
         code = f.read()
-        return ai.analyze(code)
+        logger.info(f"read code from {file} successfully")
+        response = ai.analyze(code)
+        logger.info("analysis completed successfully")
+        return response
